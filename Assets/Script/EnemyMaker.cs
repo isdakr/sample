@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnemyMaker : MonoBehaviour
 {
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private float makeTime;
+    private float waitTime;
+    [SerializeField] private float enemyY;
+    [SerializeField] private float enemyX;
+    private float ranX;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +19,15 @@ public class EnemyMaker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (waitTime < makeTime)
+        {
+            waitTime = waitTime + Time.deltaTime;
+        }
+        else
+        {
+            ranX = Random.Range(enemyX * -1, enemyX);
+            Instantiate(enemyPrefab, new Vector3(ranX, enemyY, 0), enemyPrefab.transform.rotation);
+            waitTime = 0;
+        }
     }
 }
